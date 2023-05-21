@@ -9,6 +9,10 @@ npm install @react-navigation/native
 npx expo install react-native-screens react-native-safe-area-context
 npm install @react-navigation/native-stack
 
+#material topbar
+npm install @react-navigation/material-top-tabs react-native-tab-view
+npx expo install react-native-pager-view
+
 npx expo install expo-barcode-scanner
 
 ## publish
