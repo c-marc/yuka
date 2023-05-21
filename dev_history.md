@@ -13,6 +13,8 @@ npm install @react-navigation/native-stack
 npm install @react-navigation/material-top-tabs react-native-tab-view
 npx expo install react-native-pager-view
 
+npx expo install expo-secure-store
+
 npx expo install expo-barcode-scanner
 
 ## publish

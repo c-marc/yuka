@@ -3,6 +3,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Dimensions } from "react-native";
 
+// Need AuthContext
+import { useAuth } from "../auth-flow/auth-contexts";
+
 // import screens
 import SignupScreen from "../screens/signup-screen";
 import SigninScreen from "../screens/signin-screen";
@@ -12,6 +15,7 @@ import ProductScreen from "../screens/product-screen";
 import CameraScreen from "../screens/camera-screen";
 import MyAccountScreen from "../screens/my-account-screen";
 import CustomTabBar from "../components/custom-tab-bar";
+import SplashScreen from "../screens/splash-screen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -34,16 +38,23 @@ function MainTab() {
 
 // Main Navigation
 export default function MainNavigation() {
-  //temporary
-  const signedIn = true;
+  // Get AuthContext
+  const auth = useAuth();
+  console.log(auth);
 
+  // Get rid of that situation where we haven't checked SecuredStore yet
+  if (auth.isLoading) {
+    return <SplashScreen />;
+  }
+
+  // We're on
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {!signedIn ? (
+        {!auth.userToken ? (
           <>
-            <Stack.Screen name="Signup" component={SignupScreen} />
             <Stack.Screen name="Signin" component={SigninScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
           </>
         ) : (
           <>

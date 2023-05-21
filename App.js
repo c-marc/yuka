@@ -4,17 +4,23 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Button from "./components/button";
-import { useState } from "react";
+import { useState, useEffect, useReducer } from "react";
 import Overview from "./components/overview";
 
 // Screens
 import CameraScreen from "./screens/camera-screen";
 import MainNavigation from "./navigators/main-navigation";
+import SplashScreen from "./screens/splash-screen";
+import AuthProvider from "./auth-flow/auth-provider";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  return <MainNavigation />;
+  return (
+    <AuthProvider>
+      <MainNavigation />
+    </AuthProvider>
+  );
 
   const [showOverview, setShowOverview] = useState(false);
 
