@@ -1,8 +1,8 @@
-import { useReducer, useEffect, createContext, useMemo } from "react";
+import { useReducer, useEffect, useMemo } from "react";
 import * as SecureStore from "expo-secure-store";
 
 import { AuthContext, AuthDispatchContext } from "./auth-contexts.js";
-import SplashScreen from "../screens/splash-screen.js";
+import { authenticateUser } from "../services/yuka-api.js";
 
 // Reducer
 // - handle combined states
@@ -73,18 +73,23 @@ export default function AuthProvider({ children }) {
         // After getting token, we need to persist the token using `SecureStore`
         // In the example, we'll use a dummy token
 
-        let userToken; // undefined
+        let userToken;
         try {
-          // TODO: post to backend
-          userToken = "dummy-auth-token";
-          userToken = await SecureStore.setItemAsync("userToken", userToken);
+          const user = await authenticateUser(data);
+          userToken = user.userToken;
+          await SecureStore.setItemAsync("userToken", userToken);
         } catch (e) {
-          // Failed
+          console.info(e.message);
+          // rethrow or dispatch error?
+          throw e;
         }
 
-        dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
+        dispatch({ type: "SIGN_IN", token: userToken });
       },
-      signOut: () => dispatch({ type: "SIGN_OUT" }),
+      signOut: async () => {
+        await SecureStore.deleteItemAsync("userToken");
+        dispatch({ type: "SIGN_OUT" });
+      },
       signUp: async (data) => {
         // In a production app, we need to send user data to server and get a token
         // We will also need to handle errors if sign up failed
@@ -93,14 +98,16 @@ export default function AuthProvider({ children }) {
 
         let userToken; // undefined
         try {
-          // TODO: post to backend
-          userToken = "dummy-auth-token";
-          userToken = await SecureStore.setItemAsync("userToken", userToken);
+          const user = await createUser(data);
+          userToken = user.userToken;
+          await SecureStore.setItemAsync("userToken", userToken);
         } catch (e) {
-          // Failed
+          console.info(e.message);
+          // rethrow or dispatch error?
+          throw e;
         }
 
-        dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
+        dispatch({ type: "SIGN_IN", token: userToken });
       },
     }),
     []
