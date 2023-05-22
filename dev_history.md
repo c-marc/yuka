@@ -46,23 +46,26 @@ List of products:
 
 `https://world.openfoodfacts.org/api/v2/search?code=3263859883713,8437011606013,6111069000451&fields=code,product_name`
 
+- products: []
+
 Product:
 
 `https://world.openfoodfacts.net/api/v2/product/3017624010701`
 
+- code
+- product: {}
+
 Query params:
 
 `?fields=`, séparés par des virgules
-
-- code
-- product
 
 Dans product:
 
 - \_id ( =code?)
 - product_name
 - brand_owner
-- nutrition_grades:"e"
+- nutriscore_grade:"e"
+- nutriscore_score: 4
 - nutriscore_data
 - nutriments
 
