@@ -36,10 +36,11 @@ Authentification flow:
 Navigation:
 
 - nested navigation with stacked nav and tab nav
-- custom top tab bar
 - conditionnal stack groups and styling (auth screens vs. main app)
+- custom top tab bar with mixed navigation
+- floating action button
 
-Scan:
+Barcode scanner:
 
 - scanned barcode triggers a request on OpenFoodFact
 - found products are added to a history collection with timestamps
@@ -53,14 +54,14 @@ History and favorites:
 - collection are stored in `AsyncStorage`
 - show the relevant list of products
 - timestamps are specific to each collection and processed and displayed based on current time
-- screens are revalidated each time they get focus
+- these screens are revalidated each time they get focus (history can be mutated in the camera screen, favorites can be mutated in the product screen...)
 
 Product:
 
 - shows details
 - favorite status can be toggled from the header
-- favorite status and toggling are isolated from the rest of the data and does not require rerendering
-- uses optimistic rendering (change is instantaneously displayed while the mutation is posted to the backend; would it fail, next rendering would show the truth)
+- favorite status and toggling are isolated from the rest of the states and does not trigger rerendering and refetching
+- toggling uses optimistic rendering pattern (change is instantaneously displayed while the mutation is posted to the backend; would it fail, next rendering would show the truth)
 
 Account details:
 
