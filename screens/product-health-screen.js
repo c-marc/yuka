@@ -1,9 +1,1 @@
-import { View, Text, Pressable } from "react-native";
-
-export default function ProductHealthScreen() {
-  return (
-    <View>
-      <Text>Product health</Text>
-    </View>
-  );
-}
+// Secondary tab nav in original App

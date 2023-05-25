@@ -1,35 +1,68 @@
+## Installed
+
+Init:
+
+```bash
 npx create-expo-app yuka
 cd yuka
 npx expo install react-dom react-native-web @expo/webpack-config
 npx expo start
+```
 
+```
 npx expo install @expo/vector-icons
+```
 
+Navigation:
+
+```
 npm install @react-navigation/native
-npx expo install react-native-screens react-native-safe-area-context
 npm install @react-navigation/native-stack
+npx expo install react-native-screens react-native-safe-area-context
+```
 
-#material topbar
+Material topbar navigation:
+
+```
 npm install @react-navigation/material-top-tabs react-native-tab-view
 npx expo install react-native-pager-view
+```
 
+Storage:
+
+```
 npx expo install expo-secure-store
+npx expo install @react-native-async-storage/async-storage
+```
 
+Barcode:
+
+```
 npx expo install expo-barcode-scanner
+```
 
-## publish
+## Publish
+
+Alternative: launch with `npx expo start --tunnel`
+
+Or publish and share with expo:
 
 <https://docs.expo.dev/eas-update/getting-started/>
 
+```bash
 npm install --global eas-cli
+```
 
 More config...
 
-Then...
+Then:
 
-npx export start
-Iterate & publish
+```bash
+# Dev
+npx expo start
+# Iterate & publish
 eas update --branch preview --message "Updating the app"
+```
 
 ## Things to keep in mind
 
@@ -39,6 +72,26 @@ Eexemple <https://stackoverflow.com/a/63657029>:
 
 - DO NOT let autocapitalize
 - activate @ on keyboard
+- lot of props to use...
+
+## Icons
+
+Material:
+
+- login logout person-add
+- star star-outline
+- error-outline
+- person mail key-vpn
+- favorite
+- more-vert
+
+MaterialCommunity:
+
+- barcode-scan
+
+FontAwaesome5:
+
+- carrot
 
 ## OFF API
 

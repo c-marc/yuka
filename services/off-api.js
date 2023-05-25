@@ -1,7 +1,10 @@
+import axios from "axios";
+
 const OFF_BASE_URL = "https://world.openfoodfacts.org/api/v2";
 
 export async function getProducts(codes) {
   const fields = [
+    "_id",
     "code",
     "product_name",
     "brand_owner",
@@ -25,12 +28,14 @@ export async function getProducts(codes) {
 
 export async function getProduct(code) {
   const fields = [
+    "_id",
     "code",
     "product_name",
     "brand_owner",
     "nutriscore_grade",
     "nutriscore_score",
     "nutriscore_data",
+    "nutriments",
     "image_small_url",
   ];
   const query = `?fields=${fields.join(",")}`;
@@ -38,7 +43,7 @@ export async function getProduct(code) {
 
   try {
     const result = await axios.get(url);
-    return result.data.products;
+    return result.data.product;
   } catch (error) {
     if (error.response?.data.error.message) {
       throw new Error(error.response.data.error.message);

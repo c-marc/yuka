@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Pressable,
-  Button,
-  TextInput,
-  StyleSheet,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+
+// Auth
 import { useAuthDispatch } from "../auth-flow/auth-contexts";
 
-import { fakeUser } from "../services/yuka-api";
+// API
+import { fakeUser } from "../services/yuka-api-user";
 
-export default function SigninScreen() {
+// Components
+import LayoutForm, {
+  LinkButton,
+  SubmitButton,
+  TextInputStyled,
+} from "../components/layout-form";
+import ErrorCustom from "../components/error-custom";
+
+export default function SigninScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -32,14 +36,16 @@ export default function SigninScreen() {
     try {
       await signIn({ email, password });
     } catch (error) {
-      setErrorMessage("Wrong email or password");
+      setErrorMessage("Email ou mot-de-passe invalide");
     }
     setIsLoading(false);
   }
 
   return (
-    <View>
-      <TextInput
+    <LayoutForm>
+      <Text style={styles.titleText}>🐰</Text>
+
+      <TextInputStyled
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
@@ -49,7 +55,7 @@ export default function SigninScreen() {
         autoCorrect={false}
         autoCompleteType="email"
       />
-      <TextInput
+      <TextInputStyled
         placeholder="Mot de passe"
         value={password}
         onChangeText={setPassword}
@@ -57,22 +63,29 @@ export default function SigninScreen() {
         textContentType="password"
         autoCorrect={false}
       />
-      <Pressable
+      <SubmitButton
+        isLoading={isLoading}
+        text="Se connecter"
         onPress={handleSubmit}
-        disabled={isLoading}
-        style={isLoading ? [styles.btn, styles.disabled] : styles.btn}
-      >
-        <Text>Se connecter</Text>
-      </Pressable>
+      />
 
-      {errorMessage && <Text>{errorMessage}</Text>}
-    </View>
+      <View style={styles.row}>
+        <Text>Pas encore inscrit(e) ?</Text>
+        <LinkButton
+          text="C'est par ici"
+          onPress={() => navigation.navigate("Signup")}
+        />
+      </View>
+
+      <ErrorCustom message={errorMessage} />
+    </LayoutForm>
   );
 }
 
 const styles = StyleSheet.create({
-  btn: {},
-  disabled: {
-    opacity: 0.5,
+  titleText: {
+    fontSize: 30,
+    textAlign: "center",
   },
+  row: { flexDirection: "row", gap: 10 },
 });

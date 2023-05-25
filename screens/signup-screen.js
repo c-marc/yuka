@@ -1,12 +1,21 @@
 import { useState, useEffect } from "react";
+import { View, Text, StyleSheet } from "react-native";
 
-import { View, Text, Pressable } from "react-native";
-
+// Auth
 import { useAuthDispatch } from "../auth-flow/auth-contexts";
 
-import { fakeUser } from "../services/yuka-api";
+// API
+import { fakeUser } from "../services/yuka-api-user";
 
-export default function SignupScreen() {
+// Components
+import LayoutForm, {
+  LinkButton,
+  SubmitButton,
+  TextInputStyled,
+} from "../components/layout-form";
+import ErrorCustom from "../components/error-custom";
+
+export default function SignupScreen({ navigation }) {
   const [email, setEmail] = useState(fakeUser.email);
   const [username, setUsername] = useState(fakeUser.username);
   const [password, setPassword] = useState(fakeUser.password);
@@ -28,7 +37,7 @@ export default function SignupScreen() {
     setErrorMessage(null);
 
     if (!username || !email || !password) {
-      return setErrorMessage("All fields are required");
+      return setErrorMessage("Tous les champs sont obligatoires");
     }
 
     try {
@@ -40,8 +49,10 @@ export default function SignupScreen() {
   }
 
   return (
-    <View>
-      <TextInput
+    <LayoutForm>
+      <Text style={styles.titleText}>🐰</Text>
+
+      <TextInputStyled
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
@@ -51,14 +62,14 @@ export default function SignupScreen() {
         autoCorrect={false}
         autoCompleteType="email"
       />
-      <TextInput
+      <TextInputStyled
         placeholder="Prénom"
         value={username}
         onChangeText={setUsername}
         textContentType="username"
         autoCorrect={false}
       />
-      <TextInput
+      <TextInputStyled
         placeholder="Mot de passe"
         value={password}
         onChangeText={setPassword}
@@ -66,11 +77,30 @@ export default function SignupScreen() {
         textContentType="newPassword"
         autoCorrect={false}
       />
-      <Pressable onPress={handleSubmit} disabled={isLoading}>
-        <Text>S'inscrire</Text>
-      </Pressable>
 
-      {errorMessage && <Text>{errorMessage}</Text>}
-    </View>
+      <SubmitButton
+        isLoading={isLoading}
+        text="S'inscrire"
+        onPress={handleSubmit}
+      />
+
+      <View style={styles.row}>
+        <Text>Déjà inscrit(e) ?</Text>
+        <LinkButton
+          text="C'est par ici"
+          onPress={() => navigation.navigate("Signin")}
+        />
+      </View>
+
+      <ErrorCustom message={errorMessage} />
+    </LayoutForm>
   );
 }
+
+const styles = StyleSheet.create({
+  titleText: {
+    fontSize: 30,
+    textAlign: "center",
+  },
+  row: { flexDirection: "row", gap: 10 },
+});

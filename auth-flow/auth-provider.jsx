@@ -2,7 +2,7 @@ import { useReducer, useEffect, useMemo } from "react";
 import * as SecureStore from "expo-secure-store";
 
 import { AuthContext, AuthDispatchContext } from "./auth-contexts.js";
-import { authenticateUser } from "../services/yuka-api.js";
+import { authenticateUser } from "../services/yuka-api-user.js";
 
 // Reducer
 // - handle combined states
