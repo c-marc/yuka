@@ -35,7 +35,7 @@ J'ai déjà rencontré ces pb avec les favoris et une source/API secondaire pour
 
 2. Dans tous les cas, quand on a deux sources d'info, comment bien gérer les requêtes et les "jointures" de données ?
 
-- dans Marvel, mon back requêtait tous les film, moi je stockais juste les ids des favoris, et je demandais à mon back d'ajouter éventuellement -si j'étais auth- une clé qui disait "id dans les favoris? oui/non". Mais du coup pour afficher les favoris, je devais requêter tous les films (de toute façon c'était l'API), et faire une jointure de tables à la main.
+- dans Marvel, mon back requêtait tous les films, moi je stockais juste les ids des favoris, et je demandais à mon back d'ajouter éventuellement -si j'étais auth- une clé qui disait "id dans les favoris? oui/non". Mais du coup pour afficher les favoris, je devais requêter tous les films (de toute façon c'était l'API), et faire une jointure de tables à la main.
 
 - ici, je stocke juste les id (historique ou favoris) et je demande juste les produits avec ces id : je requête à l'API seulement les données pour ces id, et en une requête (car j'ai vu qu'on pouvait faire ça avec OpenFoodFacts). Mais après je suis encore obligé de faire une espèce de jointure à la main entre la table de mon api (favoris ou historique) et la table obtenue de l'api externe (open food fact)...
 
