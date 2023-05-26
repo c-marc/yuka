@@ -21,7 +21,7 @@ Options:
 
 - rester sur la revalidation au focus du screen avec `useIsFocused()` ou `useFocusEffect()`
 - ajouter un state `isValid` ou `needToRevalidate` qu'on met en dépendance du useFfect et qu'on setState après une mutation (juste après des `await axios.post()` / `put`)
-- utiliser une solution dédiée aux pb de données/states asynchrones: ex React Query marche avec React Native
+- utiliser une solution dédiée aux pb de données/states asynchrones: ex React Query marche bien avec React Native <https://tanstack.com/query/v4/docs/react/react-native>
 
 ## Floating Action button
 
@@ -37,19 +37,19 @@ J'ai tenté des trucs pour répondre au conseil dans `components/fab-scan.jsx` ,
 
 J'ai déjà rencontré ces pb avec les favoris et une source/API secondaire pour les data.
 
-1. Est-ce qu'il vaut mieux:
+1. Est-ce que ça semble plus logique:
 
-- requêter des données (products/movies) et dire au back d'enrichir les résultats si on est authentifié/connu avec des clés supplémentaires (favoris)
+- d'avoir une route pour requêter des données (products/movies) qu'on appelle sans ou avec le header, et c'est le pb du back pour cette route d'enrichir les résultats si on est authentifié/connu avec des clés supplémentaires (ex les favoris)
 
-- requêter des données sans auth (produits yuka, films, jeux), et requêter en parallèle des données privées (favoris)
+- de garder des routes "pures" = requêter des données sans auth (produits yuka, films, jeux) sur une route, et requêter en parallèle des données privées (favoris) sur une autre route privées...
 
 2. Dans tous les cas, quand on a deux sources d'info, comment bien gérer les requêtes et les "jointures" de données ?
 
-- dans Marvel, mon back requêtait tous les films, moi je stockais juste les ids des favoris, et je demandais à mon back d'ajouter éventuellement -si j'étais auth- une clé qui disait "id dans les favoris? oui/non". Mais du coup pour afficher les favoris, je devais requêter tous les films (de toute façon c'était l'API), et faire une jointure de tables à la main.
+- dans Marvel, mon back requêtait tous les films ; moi je stockais juste les ids des favoris ; et je demandais à mon back d'ajouter éventuellement -si j'étais auth- une clé qui disait "id dans les favoris? oui/non". Mais du coup pour afficher les favoris, je devais requêter tous les films (de toute façon c'était l'API qu'on avait), et ensuite faire une jointure de tables à la main, et filter.
 
-- ici, je stocke juste les id (historique ou favoris) et je demande juste les produits avec ces id : je requête à l'API seulement les données pour ces id, et en une requête (car j'ai vu qu'on pouvait faire ça avec OpenFoodFacts). Mais après je suis encore obligé de faire une espèce de jointure à la main entre la table de mon api (favoris ou historique) et la table obtenue de l'api externe (open food fact)...
+- ici dans Yuka, je stocke juste les id (historique ou favoris) et je demande juste les produits avec ces id : je requête à l'API seulement les données pour ces id, et en une requête (car j'ai vu qu'on pouvait faire ça avec OpenFoodFacts). Mais après je suis encore obligé de faire une espèce de jointure à la main entre la table de ma DB (favoris ou historique) et la table obtenue de l'api externe (open food fact)...
 
-Bref, j'ai du mal à voir quel pattern privilégier. Je pense que c'est bien de ne stocker que les id et de ne pas dupliquer les datas, mais j'ai l'impression de faire pire que du no-sql... soit du no-no-sql... puisque je me retrouve à faire des filtres et des jointures à la main (alors que ça ressemble à des opérations/méthodes de BDD, nosql ou sql).
+Bref, j'ai du mal à voir quel pattern privilégier. Je pense que c'est bien de ne stocker que les id et de ne pas dupliquer les datas, mais j'ai l'impression de faire pire que du no-sql... soit du no-no-sql... puisque j'extraie les résultas de 2 BDD et je me retrouve à faire des filtres et des jointures à posteriori à la main (alors que ça ressemble à des opérations/méthodes de BDD, nosql ou sql).
 
 ## Style
 
