@@ -43,13 +43,7 @@ J'ai déjà rencontré ces pb avec les favoris et une source/API secondaire pour
 
 - de garder des routes "pures" = requêter des données sans auth (produits yuka, films, jeux) sur une route, et requêter en parallèle des données privées (favoris) sur une autre route privées...
 
-2. Dans tous les cas, quand on a deux sources d'info, comment bien gérer les requêtes et les "jointures" de données ?
-
-- dans Marvel, mon back requêtait tous les films ; moi je stockais juste les ids des favoris ; et je demandais à mon back d'ajouter éventuellement -si j'étais auth- une clé qui disait "id dans les favoris? oui/non". Mais du coup pour afficher les favoris, je devais requêter tous les films (de toute façon c'était l'API qu'on avait), et ensuite faire une jointure de tables à la main, et filter.
-
-- ici dans Yuka, je stocke juste les id (historique ou favoris) et je demande juste les produits avec ces id : je requête à l'API seulement les données pour ces id, et en une requête (car j'ai vu qu'on pouvait faire ça avec OpenFoodFacts). Mais après je suis encore obligé de faire une espèce de jointure à la main entre la table de ma DB (favoris ou historique) et la table obtenue de l'api externe (open food fact)...
-
-Bref, j'ai du mal à voir quel pattern privilégier. Je pense que c'est bien de ne stocker que les id et de ne pas dupliquer les datas, mais j'ai l'impression de faire pire que du no-sql... soit du no-no-sql... puisque j'extraie les résultas de 2 BDD et je me retrouve à faire des filtres et des jointures à posteriori à la main (alors que ça ressemble à des opérations/méthodes de BDD, nosql ou sql).
+2. Dans tous les cas, quand on a deux sources d'info = 2 BDD, comment bien gérer les requêtes et les "jointures" de tables hors ODM ?
 
 ## Style
 
