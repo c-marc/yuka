@@ -9,7 +9,7 @@ Dans `navigators/main-navigation.js` ligne 114, j'applique l'option sur le navgi
 - ça marche entre signin et signup
 - ça ne marche pas ailleurs
 
-Merci Tom:
+Résolu. Merci Tom:
 
 <https://stackoverflow.com/questions/75961091/react-native-headerbacktitlevisible-false-not-working-in-expo-sdk-48>
 
