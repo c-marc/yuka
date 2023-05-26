@@ -9,6 +9,10 @@ Dans `navigators/main-navigation.js` ligne 114, j'applique l'option sur le navgi
 - ça marche entre signin et signup
 - ça ne marche pas ailleurs
 
+Merci Tom:
+
+<https://stackoverflow.com/questions/75961091/react-native-headerbacktitlevisible-false-not-working-in-expo-sdk-48>
+
 ### Pattern pour les states, les useEffect, et l'invalidation des routes
 
 Comme les states "data" sont isolés dans les screens, je suis obligé de faire dépendre tous les screens du focus pour forcer leur actualisation. Est-ce que c'est comme ça qu'il faut gérer une app mobile et des écrans qui dépendent de données ? Ou y aurait-il moyen de ne pas re-requêter systématiquement à chaque refocus, en observant si oui ou non, les données ont changé. Comme le state est au niveau de l'écran, je me demande comment on pourrait faire pour démonter/remonter seulement en cas de besoin = en fonction du changement des données et pas systématiquement quand on refocus (un state supérieur ? mais du coup ça voudrait dire avoir des states historiques/favoris/produit au dessus de la nav... des states "isValid" propre à chaque screen ? mais ça voudrait dire pouvoir les invalider depuis d'autres screens, donc ça supposerait de les avoir aussi à un niveau supérieur comme le userToken..)...

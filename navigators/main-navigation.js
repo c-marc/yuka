@@ -64,6 +64,8 @@ function MainTab() {
         tabBarIndicatorStyle: { backgroundColor: "white" },
         tabBarShowLabel: false,
         tabBarItemStyle: { width: 70 },
+        // TEST? no it's actually a bug from native-stack
+        // headerBackTitleVisible: false,
       }}
       tabBar={(props) => <CustomTabBar {...props} />}
     >
