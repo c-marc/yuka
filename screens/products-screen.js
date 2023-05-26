@@ -29,6 +29,7 @@ export default function ProductsScreen({ navigation }) {
       try {
         // TMP: seed DB while developping
         await addToCollection("history", "0737628064502");
+        await addToCollection("history", "7610700015445");
         // normal code starts here
         // get history
         const history = await getCollection("history");

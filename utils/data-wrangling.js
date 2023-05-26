@@ -49,14 +49,22 @@ const energy = {
 function getDataFor(data, category) {
   const { nutriments, nutriscore_data } = data;
 
-  let quantity = nutriments[`${category.nutriments_key}_100g`];
-  const unit = nutriments[`${category.nutriments_key}_unit`];
-  if (unit) {
-    quantity = quantity + unit;
+  // will fail if those keys are absent
+  let quantity;
+  if (nutriments) {
+    quantity = nutriments[`${category.nutriments_key}_100g`];
+    const unit = nutriments[`${category.nutriments_key}_unit`];
+    if (unit) {
+      quantity = quantity + unit;
+    }
   }
 
-  const score = nutriscore_data[`${category.nutriments_key}_points`];
-  const result = category.rules(score);
+  let score;
+  let result = { comment: "Données manquantes" };
+  if (nutriscore_data) {
+    score = nutriscore_data[`${category.nutriscore_key}_points`];
+    result = category.rules(score);
+  }
 
   return { title: category.title, quantity, result };
 }

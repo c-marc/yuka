@@ -25,6 +25,7 @@ function Item({ data, children }) {
 }
 
 export default function ProductDetails({ product }) {
+  // Checking for missing data is delegated to these more specialized functions
   const fruits = getFruits(product);
   const energy = getEnergy(product);
 
