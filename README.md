@@ -23,7 +23,10 @@ Then:
 - either scan the QR code with ExpoGo app;
 - or launch a simulator ("i", "a"...) but you won't be able to scan products.
 
-Backend for authentification is faked, so just log in with default values.
+Important notes:
+
+- Backend for authentification is faked, you can play around with signup, but for signing in, just log in with default values.
+- history and scanner result are prepopulated with some products for easier dev/demo.
 
 ## Features
 
@@ -62,6 +65,7 @@ Product:
 - favorite status can be toggled from the header
 - favorite status and toggling are isolated from the rest of the states and does not trigger rerendering and refetching
 - toggling uses optimistic rendering pattern (change is instantaneously displayed while the mutation is posted to the backend; would it fail, next rendering would show the truth)
+- toasts confirm the mutation
 
 Account details:
 
