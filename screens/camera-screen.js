@@ -16,7 +16,7 @@ export default function CameraScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   // TMP hack for easier testing on laptop
   // const [scanned, setScanned] = useState(false);
-  const [scanned, setScanned] = useState("0737628064502");
+  const [scanned, setScanned] = useState("7610700015445");
 
   const [product, setProduct] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -54,6 +54,7 @@ export default function CameraScreen({ navigation }) {
   const handleBarCodeScanned = async ({ type, data }) => {
     // setScanned(true);
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    console.info("Scanned:", data);
     setScanned(data);
     await addToCollection("history", data);
   };

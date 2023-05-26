@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-
 import { View, Pressable, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import Toast from "react-native-root-toast";
 
 // API
 import {
@@ -41,8 +41,10 @@ export default function Favorite({ id }) {
     // isFavorite is still right until we return the promise (I think :))
     if (isFavorite) {
       await removeFromCollection("favorites", id);
+      let toast = Toast.show("Retiré des favoris");
     } else {
       await addToCollection("favorites", id);
+      let toast = Toast.show("Ajouté aux favoris");
     }
   };
 
