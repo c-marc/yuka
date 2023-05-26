@@ -3,7 +3,7 @@ import { View } from "react-native";
 // Global styles
 import { COLORS_NS_SCALE } from "../styles/global";
 
-export default function GradeIndicator({ grade, size = 24 }) {
+export default function GradeIndicator({ grade, size = 22 }) {
   return (
     <View
       style={{
